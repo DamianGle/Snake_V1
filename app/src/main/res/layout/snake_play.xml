@@ -20,8 +20,8 @@
         android:gravity="center"
         android:textColor="#FF0000"
         android:textSize="32sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="369dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="510dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
