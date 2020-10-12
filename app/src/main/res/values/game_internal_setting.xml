@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="dim">20</integer>
+    <integer name="frame_margin">10</integer>
+    <integer name="frame_stroke">10</integer>
+</resources>
