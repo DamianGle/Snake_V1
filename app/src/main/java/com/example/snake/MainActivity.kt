@@ -15,6 +15,7 @@ import android.os.CountDownTimer
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.snake_play.*
 
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -24,6 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, Snake::class.java)
       //  intent.putExtra(EXTRA_ADDRESS, address)
-        startActivity(intent)
+        startActivity(intent);
     }
 }

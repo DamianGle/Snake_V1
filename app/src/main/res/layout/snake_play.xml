@@ -5,12 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@android:color/background_dark" />
-
 
     <TextView
         android:id="@+id/countTime"
@@ -22,6 +16,13 @@
         android:textSize="32sp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="510dp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

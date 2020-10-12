@@ -6,20 +6,4 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/countTime"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:gravity="center"-->
-<!--        android:textColor="@android:color/background_dark"-->
-<!--        android:textSize="32sp"-->
-<!--        tools:layout_editor_absoluteX="48dp"-->
-<!--        tools:layout_editor_absoluteY="618dp" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageV"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
