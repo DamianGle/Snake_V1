@@ -19,33 +19,46 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.snake_play.*
 import org.jetbrains.anko.toast
+import org.w3c.dom.Node
 
 
 class Snake: AppCompatActivity()
 {
     // rectangle positions
-    private var head_posX = 20;
-    private var head_posY = 20;
+//    private var head_posX = 20;
+//    private var head_posY = 20;
     //private var dim = 20;
-    private var touchX = 0;
-    private var touchY = 0;
-    private var poolHeight = 0;
-    private var poolWidth = 0;
+//    private var touchX = 0;
+//    private var touchY = 0;
+//    private var poolHeight = 0;
+//    private var poolWidth = 0;
 
-    // For tracking movement Heading
+//    private var MAX_TAIL = 30;
+    private var snakeTailX = mutableListOf<Int>();
+    private var snakeTailY = mutableListOf<Int>();
+
+//     For tracking movement Heading
     enum class Heading {
         UP, RIGHT, DOWN, LEFT
     }
 
-    // Start by heading to the right
+  //   Start by heading to the right
     private var heading = Heading.RIGHT
+
+
+//    private val snakeBody = SnakeBody();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
 
-        poolHeight = view.height;
-        poolWidth = view.width;
+   //     poolHeight = view.height;
+  //      poolWidth = view.width;
+
+        snakeTailX.add(0, 50);
+        snakeTailY.add(0, 50);
+
+  ;
 
         startTimeCounter()
 
@@ -59,12 +72,15 @@ class Snake: AppCompatActivity()
 
         var shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
 
-        shapeDrawable.setBounds( margin,margin,view.width - margin - 2*stroke ,view.height- margin - 2*stroke);
+        shapeDrawable.setBounds( margin,margin,view.width - margin - 2*stroke,view.height - margin - 2*stroke);
         shapeDrawable.paint.color = Color.RED;
         shapeDrawable.paint.style = Paint.Style.STROKE;
         shapeDrawable.paint.strokeWidth = 5f;
         shapeDrawable.draw(canvas);
     }
+
+
+
 
     private fun drawTail(canvas: Canvas, posX: Int, posY: Int)
     {
@@ -74,6 +90,17 @@ class Snake: AppCompatActivity()
         shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim);
         shapeDrawable.paint.color = Color.MAGENTA;
         shapeDrawable.draw(canvas);
+    }
+
+    private fun moveHead()
+    {
+        when(heading)
+        {
+            Heading.RIGHT -> snakeTailX[0] += 20;
+            Heading.LEFT -> snakeTailX[0] -= 20;
+            Heading.UP -> snakeTailY[0] -= 20;
+            Heading.DOWN -> snakeTailY[0] += 20;
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -87,29 +114,20 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
-        if(heading == Heading.RIGHT)
-            head_posX += 20;
-
-        if(heading == Heading.LEFT)
-            head_posX -= 20;
-
-        if(heading == Heading.UP)
-            head_posY -= 20;
-
-        if(heading == Heading.DOWN)
-            head_posY += 20;
+        moveHead();
         draw();
     }
+    
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun draw()
     {
-        val bitmap: Bitmap = Bitmap.createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
+        val bitmap: Bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
         bitmap.eraseColor(Color.BLACK);
 
         val canvas: Canvas = Canvas(bitmap)
 
         drawFrame(canvas);
-        drawTail(canvas, head_posX, head_posY);
+        drawTail(canvas, snakeTailX[0], snakeTailY[0]);
 
         view.background = BitmapDrawable(resources, bitmap)
     }
@@ -122,7 +140,7 @@ class Snake: AppCompatActivity()
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
         when (motionEvent.action and MotionEvent.ACTION_MASK) {
-            MotionEvent.ACTION_UP -> heading = if (motionEvent.x >= poolWidth / 2) {
+            MotionEvent.ACTION_UP -> heading = if (motionEvent.x >= view.width / 2) {
                 when (heading) {
                     Heading.UP -> Heading.RIGHT
                     Heading.RIGHT -> Heading.DOWN
@@ -140,12 +158,12 @@ class Snake: AppCompatActivity()
         }
         return true
     }
-
-
+    
     private fun startTimeCounter() {
         val countTime: TextView = findViewById(R.id.countTime)
 
-        object : CountDownTimer(500, 100)
+        object : CountDownTimer((resources.getInteger(R.integer.timer_counter)/resources.getInteger(R.integer.FPS) * 10).toLong(),
+            resources.getInteger(R.integer.timer_counter).toLong())
         {
             @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
             override fun onTick(millisUntilFinished: Long) {
