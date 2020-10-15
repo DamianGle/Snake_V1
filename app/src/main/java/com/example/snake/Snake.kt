@@ -24,68 +24,68 @@ import org.w3c.dom.Node
 
 class Snake: AppCompatActivity()
 {
-    // rectangle positions
-//    private var head_posX = 20;
-//    private var head_posY = 20;
-    //private var dim = 20;
-//    private var touchX = 0;
-//    private var touchY = 0;
-//    private var poolHeight = 0;
-//    private var poolWidth = 0;
-
-//    private var MAX_TAIL = 30;
     private var snakeTailX = mutableListOf<Int>();
     private var snakeTailY = mutableListOf<Int>();
 
-//     For tracking movement Heading
     enum class Heading {
         UP, RIGHT, DOWN, LEFT
     }
 
-  //   Start by heading to the right
-    private var heading = Heading.RIGHT
-
-
-//    private val snakeBody = SnakeBody();
+    private var heading = Heading.RIGHT;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
 
-   //     poolHeight = view.height;
-  //      poolWidth = view.width;
+        initialize();
+        startTimeCounter();
+    }
 
-        snakeTailX.add(0, 50);
-        snakeTailY.add(0, 50);
+    private fun initialize()
+    {
+        snakeTailX.add(0, 200);
+        snakeTailY.add(0, 200);
 
-  ;
+        snakeTailX.add(1, 200);
+        snakeTailY.add(1, 200);
 
-        startTimeCounter()
 
-
+        var random = (1..4).random();
+        when(random)
+        {
+            1 -> heading = Heading.LEFT;
+            2 -> heading = Heading.RIGHT;
+            3 -> heading = Heading.UP;
+            4 -> heading = Heading.DOWN;
+        }
     }
 
     private fun drawFrame(canvas: Canvas)
     {
-        var margin = resources.getInteger(R.integer.frame_margin);
-        var stroke = resources.getInteger(R.integer.frame_stroke);
+        val margin = resources.getInteger(R.integer.frame_margin);
+        val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
 
-        var shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
-
-        shapeDrawable.setBounds( margin,margin,view.width - margin - 2*stroke,view.height - margin - 2*stroke);
+        shapeDrawable.setBounds( margin,margin,view.width - margin,view.height - margin);
         shapeDrawable.paint.color = Color.RED;
         shapeDrawable.paint.style = Paint.Style.STROKE;
         shapeDrawable.paint.strokeWidth = 5f;
         shapeDrawable.draw(canvas);
     }
 
+    private fun drawTails(canvas: Canvas)
+    {
+        var i = 0;
 
-
+        while(i < snakeTailX.count()) {
+            drawTail(canvas, snakeTailX[i], snakeTailY[i]);
+            i++;
+        }
+    }
 
     private fun drawTail(canvas: Canvas, posX: Int, posY: Int)
     {
-        var dim = resources.getInteger(R.integer.dim);
-        var shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
+        val dim = resources.getInteger(R.integer.dim);
+        val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
 
         shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim);
         shapeDrawable.paint.color = Color.MAGENTA;
@@ -94,30 +94,17 @@ class Snake: AppCompatActivity()
 
     private fun moveHead()
     {
+        val dim = resources.getInteger(R.integer.dim);
+
         when(heading)
         {
-            Heading.RIGHT -> snakeTailX[0] += 20;
-            Heading.LEFT -> snakeTailX[0] -= 20;
-            Heading.UP -> snakeTailY[0] -= 20;
-            Heading.DOWN -> snakeTailY[0] += 20;
+            Heading.RIGHT -> snakeTailX[0] += dim;
+            Heading.LEFT -> snakeTailX[0] -= dim;
+            Heading.UP -> snakeTailY[0] -= dim;
+            Heading.DOWN -> snakeTailY[0] += dim;
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    private fun doInTimer()
-    {
-        val myView: View = findViewById(R.id.view)
-        myView.setOnTouchListener(touchListener);
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    private fun doAfterTimer()
-    {
-        moveHead();
-        draw();
-    }
-    
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun draw()
     {
@@ -127,11 +114,10 @@ class Snake: AppCompatActivity()
         val canvas: Canvas = Canvas(bitmap)
 
         drawFrame(canvas);
-        drawTail(canvas, snakeTailX[0], snakeTailY[0]);
+        drawTails(canvas);
 
         view.background = BitmapDrawable(resources, bitmap)
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     var touchListener = OnTouchListener { _, event -> // save the X,Y coordinates
@@ -158,7 +144,21 @@ class Snake: AppCompatActivity()
         }
         return true
     }
-    
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    private fun doInTimer()
+    {
+        val myView: View = findViewById(R.id.view)
+        myView.setOnTouchListener(touchListener);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    private fun doAfterTimer()
+    {
+        moveHead();
+        draw();
+    }
+
     private fun startTimeCounter() {
         val countTime: TextView = findViewById(R.id.countTime)
 
