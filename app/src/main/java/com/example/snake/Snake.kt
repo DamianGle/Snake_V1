@@ -46,15 +46,10 @@ class Snake: AppCompatActivity()
         snakeTailX.add(0, 200);
         snakeTailY.add(0, 200);
 
-        snakeTailX.add(1, 200);
-        snakeTailY.add(1, 200);
-
-        snakeTailX.add(2, 200);
-        snakeTailY.add(2, 200);
-
-        snakeTailX.add(3, 200);
-        snakeTailY.add(3, 200);
-
+        addTail();
+        addTail();
+        addTail();
+        addTail();
 
         var random = (1..4).random();
         when(random)
@@ -76,6 +71,12 @@ class Snake: AppCompatActivity()
         shapeDrawable.paint.style = Paint.Style.STROKE;
         shapeDrawable.paint.strokeWidth = 5f;
         shapeDrawable.draw(canvas);
+    }
+
+    private fun addTail()
+    {
+        snakeTailX.add(snakeTailX.count(), snakeTailX[snakeTailX.count() - 1]);
+        snakeTailY.add(snakeTailY.count(), snakeTailY[snakeTailY.count() - 1]);
     }
 
     private fun moveTails()
@@ -119,6 +120,8 @@ class Snake: AppCompatActivity()
 
         shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim);
         shapeDrawable.paint.color = Color.MAGENTA;
+        shapeDrawable.paint.style = Paint.Style.STROKE;
+        shapeDrawable.paint.strokeWidth = 2f;
         shapeDrawable.draw(canvas);
     }
 
