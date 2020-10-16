@@ -3,5 +3,5 @@
     <integer name="dim">20</integer>
     <integer name="frame_margin">20</integer>
     <integer name="timer_counter">100</integer>
-    <integer name="FPS">2</integer>
+    <integer name="FPS">3</integer>
 </resources>

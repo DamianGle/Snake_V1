@@ -49,6 +49,12 @@ class Snake: AppCompatActivity()
         snakeTailX.add(1, 200);
         snakeTailY.add(1, 200);
 
+        snakeTailX.add(2, 200);
+        snakeTailY.add(2, 200);
+
+        snakeTailX.add(3, 200);
+        snakeTailY.add(3, 200);
+
 
         var random = (1..4).random();
         when(random)
@@ -72,6 +78,30 @@ class Snake: AppCompatActivity()
         shapeDrawable.draw(canvas);
     }
 
+    private fun moveTails()
+    {
+        val dim = resources.getInteger(R.integer.dim);
+
+        if(snakeTailX.count() > 1)
+        {
+            var i = snakeTailX.count() - 1;
+
+            while(i > 0) {
+                snakeTailX[i] = snakeTailX[i-1];
+                snakeTailY[i] = snakeTailY[i-1];
+                i--;
+            }
+
+            when(heading)
+            {
+                Heading.RIGHT -> snakeTailX[0] += dim;
+                Heading.LEFT -> snakeTailX[0] -= dim;
+                Heading.UP -> snakeTailY[0] -= dim;
+                Heading.DOWN -> snakeTailY[0] += dim;
+            }
+        }
+    }
+
     private fun drawTails(canvas: Canvas)
     {
         var i = 0;
@@ -90,19 +120,6 @@ class Snake: AppCompatActivity()
         shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim);
         shapeDrawable.paint.color = Color.MAGENTA;
         shapeDrawable.draw(canvas);
-    }
-
-    private fun moveHead()
-    {
-        val dim = resources.getInteger(R.integer.dim);
-
-        when(heading)
-        {
-            Heading.RIGHT -> snakeTailX[0] += dim;
-            Heading.LEFT -> snakeTailX[0] -= dim;
-            Heading.UP -> snakeTailY[0] -= dim;
-            Heading.DOWN -> snakeTailY[0] += dim;
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -155,7 +172,7 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
-        moveHead();
+        moveTails();
         draw();
     }
 
