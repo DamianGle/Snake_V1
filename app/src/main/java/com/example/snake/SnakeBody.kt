@@ -1,5 +1,6 @@
 package com.example.snake
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -8,6 +9,7 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.MotionEvent
 import android.view.View
+import kotlinx.android.synthetic.main.snake_play.*
 
 class SnakeBody() {
     private var snakeTailX = mutableListOf<Int>()
@@ -17,11 +19,9 @@ class SnakeBody() {
     private val right = 2
     private val down = 3
     private val left = 4
-
     private var heading = right
 
     private var context: Context? = null
-
     fun setContext(con: Context?) {
         context = con
     }
@@ -30,8 +30,6 @@ class SnakeBody() {
     {
         snakeTailX.add(0, 200)
         snakeTailY.add(0, 200)
-
-        addTail()
 
         when((1..4).random())
         {
@@ -52,24 +50,23 @@ class SnakeBody() {
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
 
-        if(snakeTailX.count() > 1)
-        {
+        if(snakeTailX.count() > 1) {
             var i = snakeTailX.count() - 1
 
-            while(i > 0) {
-                snakeTailX[i] = snakeTailX[i-1]
-                snakeTailY[i] = snakeTailY[i-1]
+            while (i > 0) {
+                snakeTailX[i] = snakeTailX[i - 1]
+                snakeTailY[i] = snakeTailY[i - 1]
                 i--
             }
+        }
 
-            when(heading)
+        when(heading)
             {
                 right -> snakeTailX[0] += dim!!
                 left -> snakeTailX[0] -= dim!!
                 up -> snakeTailY[0] -= dim!!
                 down -> snakeTailY[0] += dim!!
             }
-        }
     }
 
     fun moveSnake(motionEvent: MotionEvent, view: View)
@@ -108,6 +105,7 @@ class SnakeBody() {
         }
     }
 
+    @SuppressLint("ResourceType")
     private fun drawTail(canvas: Canvas, posX: Int, posY: Int)
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
@@ -115,9 +113,9 @@ class SnakeBody() {
         val shapeDrawable = ShapeDrawable(RectShape())
 
         shapeDrawable.setBounds( posX, posY, posX + dim!!, posY + dim)
-        shapeDrawable.paint.color = Color.MAGENTA
+        shapeDrawable.paint.color = context?.resources?.getInteger(R.color.snake_color)!!
         shapeDrawable.paint.style = Paint.Style.STROKE
-        shapeDrawable.paint.strokeWidth = 2f
+        shapeDrawable.paint.strokeWidth = (context?.resources?.getInteger(R.integer.snake_stroke)!!).toFloat()
         shapeDrawable.draw(canvas)
     }
 }
