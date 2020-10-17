@@ -18,6 +18,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.snake_play.*
+import org.jetbrains.anko.toast
 
 class Snake: AppCompatActivity()
 {
