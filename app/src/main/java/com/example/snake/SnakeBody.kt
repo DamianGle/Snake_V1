@@ -1,5 +1,6 @@
 package com.example.snake
 
+import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -8,7 +9,7 @@ import android.graphics.drawable.shapes.RectShape
 import android.view.MotionEvent
 import android.view.View
 
-class SnakeBody{
+class SnakeBody() {
     private var snakeTailX = mutableListOf<Int>()
     private var snakeTailY = mutableListOf<Int>()
 
@@ -17,11 +18,15 @@ class SnakeBody{
     private val down = 3
     private val left = 4
 
-    private val dim = 20
-
     private var heading = right
 
-    fun initialize()
+    private var context: Context? = null
+
+    fun setContext(con: Context?) {
+        context = con
+    }
+
+    init
     {
         snakeTailX.add(0, 200)
         snakeTailY.add(0, 200)
@@ -50,7 +55,7 @@ class SnakeBody{
 
     fun moveTails()
     {
-        //val dim = resources.getInteger(R.integer.dim);
+        val dim = context?.resources?.getInteger(R.integer.dim)
 
         if(snakeTailX.count() > 1)
         {
@@ -64,10 +69,10 @@ class SnakeBody{
 
             when(heading)
             {
-                right -> snakeTailX[0] += dim
-                left -> snakeTailX[0] -= dim
-                up -> snakeTailY[0] -= dim
-                down -> snakeTailY[0] += dim
+                right -> snakeTailX[0] += dim!!
+                left -> snakeTailX[0] -= dim!!
+                up -> snakeTailY[0] -= dim!!
+                down -> snakeTailY[0] += dim!!
             }
         }
     }
@@ -110,11 +115,11 @@ class SnakeBody{
 
     private fun drawTail(canvas: Canvas, posX: Int, posY: Int)
     {
-        //val dim = resources.getInteger(R.integer.dim);
+        val dim = context?.resources?.getInteger(R.integer.dim)
 
         val shapeDrawable = ShapeDrawable(RectShape())
 
-        shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim)
+        shapeDrawable.setBounds( posX, posY, posX + dim!!, posY + dim)
         shapeDrawable.paint.color = Color.MAGENTA
         shapeDrawable.paint.style = Paint.Style.STROKE
         shapeDrawable.paint.strokeWidth = 2f

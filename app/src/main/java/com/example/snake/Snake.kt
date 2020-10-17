@@ -18,17 +18,18 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.snake_play.*
-import org.jetbrains.anko.toast
 
 class Snake: AppCompatActivity()
 {
     private var snakeBody = SnakeBody();
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        snakeBody.setContext(applicationContext);
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
 
-        snakeBody.initialize();
         startTimeCounter();
     }
 
