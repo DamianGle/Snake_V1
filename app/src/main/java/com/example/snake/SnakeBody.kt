@@ -1,6 +1,7 @@
 package com.example.snake
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -9,6 +10,7 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.snake_play.*
 
 class SnakeBody() {
@@ -26,7 +28,7 @@ class SnakeBody() {
         context = con
     }
 
-    init
+   init
     {
         snakeTailX.add(0, 200)
         snakeTailY.add(0, 200)
