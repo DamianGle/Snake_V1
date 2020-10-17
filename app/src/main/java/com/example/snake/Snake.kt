@@ -19,46 +19,17 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.snake_play.*
 import org.jetbrains.anko.toast
-import org.w3c.dom.Node
-
 
 class Snake: AppCompatActivity()
 {
-    private var snakeTailX = mutableListOf<Int>();
-    private var snakeTailY = mutableListOf<Int>();
-
-    enum class Heading {
-        UP, RIGHT, DOWN, LEFT
-    }
-
-    private var heading = Heading.RIGHT;
+    private var snakeBody = SnakeBody();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
 
-        initialize();
+        snakeBody.initialize();
         startTimeCounter();
-    }
-
-    private fun initialize()
-    {
-        snakeTailX.add(0, 200);
-        snakeTailY.add(0, 200);
-
-        addTail();
-        addTail();
-        addTail();
-        addTail();
-
-        var random = (1..4).random();
-        when(random)
-        {
-            1 -> heading = Heading.LEFT;
-            2 -> heading = Heading.RIGHT;
-            3 -> heading = Heading.UP;
-            4 -> heading = Heading.DOWN;
-        }
     }
 
     private fun drawFrame(canvas: Canvas)
@@ -73,58 +44,6 @@ class Snake: AppCompatActivity()
         shapeDrawable.draw(canvas);
     }
 
-    private fun addTail()
-    {
-        snakeTailX.add(snakeTailX.count(), snakeTailX[snakeTailX.count() - 1]);
-        snakeTailY.add(snakeTailY.count(), snakeTailY[snakeTailY.count() - 1]);
-    }
-
-    private fun moveTails()
-    {
-        val dim = resources.getInteger(R.integer.dim);
-
-        if(snakeTailX.count() > 1)
-        {
-            var i = snakeTailX.count() - 1;
-
-            while(i > 0) {
-                snakeTailX[i] = snakeTailX[i-1];
-                snakeTailY[i] = snakeTailY[i-1];
-                i--;
-            }
-
-            when(heading)
-            {
-                Heading.RIGHT -> snakeTailX[0] += dim;
-                Heading.LEFT -> snakeTailX[0] -= dim;
-                Heading.UP -> snakeTailY[0] -= dim;
-                Heading.DOWN -> snakeTailY[0] += dim;
-            }
-        }
-    }
-
-    private fun drawTails(canvas: Canvas)
-    {
-        var i = 0;
-
-        while(i < snakeTailX.count()) {
-            drawTail(canvas, snakeTailX[i], snakeTailY[i]);
-            i++;
-        }
-    }
-
-    private fun drawTail(canvas: Canvas, posX: Int, posY: Int)
-    {
-        val dim = resources.getInteger(R.integer.dim);
-        val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
-
-        shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim);
-        shapeDrawable.paint.color = Color.MAGENTA;
-        shapeDrawable.paint.style = Paint.Style.STROKE;
-        shapeDrawable.paint.strokeWidth = 2f;
-        shapeDrawable.draw(canvas);
-    }
-
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun draw()
     {
@@ -134,7 +53,7 @@ class Snake: AppCompatActivity()
         val canvas: Canvas = Canvas(bitmap)
 
         drawFrame(canvas);
-        drawTails(canvas);
+        snakeBody.drawTails(canvas);
 
         view.background = BitmapDrawable(resources, bitmap)
     }
@@ -145,23 +64,8 @@ class Snake: AppCompatActivity()
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
-        when (motionEvent.action and MotionEvent.ACTION_MASK) {
-            MotionEvent.ACTION_UP -> heading = if (motionEvent.x >= view.width / 2) {
-                when (heading) {
-                    Heading.UP -> Heading.RIGHT
-                    Heading.RIGHT -> Heading.DOWN
-                    Heading.DOWN -> Heading.LEFT
-                    Heading.LEFT -> Heading.UP
-                }
-            } else {
-                when (heading) {
-                    Heading.UP -> Heading.LEFT
-                    Heading.LEFT -> Heading.DOWN
-                    Heading.DOWN -> Heading.RIGHT
-                    Heading.RIGHT -> Heading.UP
-                }
-            }
-        }
+        snakeBody.moveSnake(motionEvent, view)
+
         return true
     }
 
@@ -175,7 +79,7 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
-        moveTails();
+        snakeBody.moveTails();
         draw();
     }
 
