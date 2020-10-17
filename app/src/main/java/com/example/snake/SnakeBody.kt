@@ -1,6 +1,5 @@
 package com.example.snake
 
-import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -8,12 +7,10 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.MotionEvent
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.snake_play.*
 
 class SnakeBody{
-    var snakeTailX = mutableListOf<Int>();
-    var snakeTailY = mutableListOf<Int>();
+    private var snakeTailX = mutableListOf<Int>()
+    private var snakeTailY = mutableListOf<Int>()
 
     private val up = 1
     private val right = 2
@@ -22,34 +19,33 @@ class SnakeBody{
 
     private val dim = 20
 
-    var heading = right;
+    private var heading = right
 
     fun initialize()
     {
-        snakeTailX.add(0, 200);
-        snakeTailY.add(0, 200);
+        snakeTailX.add(0, 200)
+        snakeTailY.add(0, 200)
 
-        addTail();
-        addTail();
-        addTail();
-        addTail();
-        addTail();
-        addTail();
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
 
-        var random = (1..4).random();
-        when(random)
+        when((1..4).random())
         {
-            1 -> heading = left;
-            2 -> heading = right;
-            3 -> heading = up;
-            4 -> heading = down;
+            1 -> heading = left
+            2 -> heading = right
+            3 -> heading = up
+            4 -> heading = down
         }
     }
 
     fun addTail()
     {
-        snakeTailX.add(snakeTailX.count(), snakeTailX[snakeTailX.count() - 1]);
-        snakeTailY.add(snakeTailY.count(), snakeTailY[snakeTailY.count() - 1]);
+        snakeTailX.add(snakeTailX.count(), snakeTailX[snakeTailX.count() - 1])
+        snakeTailY.add(snakeTailY.count(), snakeTailY[snakeTailY.count() - 1])
     }
 
     fun moveTails()
@@ -58,20 +54,20 @@ class SnakeBody{
 
         if(snakeTailX.count() > 1)
         {
-            var i = snakeTailX.count() - 1;
+            var i = snakeTailX.count() - 1
 
             while(i > 0) {
-                snakeTailX[i] = snakeTailX[i-1];
-                snakeTailY[i] = snakeTailY[i-1];
-                i--;
+                snakeTailX[i] = snakeTailX[i-1]
+                snakeTailY[i] = snakeTailY[i-1]
+                i--
             }
 
             when(heading)
             {
-                right -> snakeTailX[0] += dim;
-                left -> snakeTailX[0] -= dim;
-                up -> snakeTailY[0] -= dim;
-                down -> snakeTailY[0] += dim;
+                right -> snakeTailX[0] += dim
+                left -> snakeTailX[0] -= dim
+                up -> snakeTailY[0] -= dim
+                down -> snakeTailY[0] += dim
             }
         }
     }
@@ -104,11 +100,11 @@ class SnakeBody{
 
     fun drawTails(canvas: Canvas)
     {
-        var i = 0;
+        var i = 0
 
         while(i < snakeTailX.count()) {
-            drawTail(canvas, snakeTailX[i], snakeTailY[i]);
-            i++;
+            drawTail(canvas, snakeTailX[i], snakeTailY[i])
+            i++
         }
     }
 
@@ -116,12 +112,12 @@ class SnakeBody{
     {
         //val dim = resources.getInteger(R.integer.dim);
 
-        val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
+        val shapeDrawable = ShapeDrawable(RectShape())
 
-        shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim);
-        shapeDrawable.paint.color = Color.MAGENTA;
-        shapeDrawable.paint.style = Paint.Style.STROKE;
-        shapeDrawable.paint.strokeWidth = 2f;
-        shapeDrawable.draw(canvas);
+        shapeDrawable.setBounds( posX, posY, posX + dim, posY + dim)
+        shapeDrawable.paint.color = Color.MAGENTA
+        shapeDrawable.paint.style = Paint.Style.STROKE
+        shapeDrawable.paint.strokeWidth = 2f
+        shapeDrawable.draw(canvas)
     }
 }
