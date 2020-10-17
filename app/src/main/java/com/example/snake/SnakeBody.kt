@@ -32,11 +32,6 @@ class SnakeBody() {
         snakeTailY.add(0, 200)
 
         addTail()
-        addTail()
-        addTail()
-        addTail()
-        addTail()
-        addTail()
 
         when((1..4).random())
         {
