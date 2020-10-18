@@ -71,13 +71,13 @@ class SnakeBody() {
             }
     }
 
-    fun moveSnake(motionEvent: MotionEvent, view: View)
+    fun moveSnake(motionEvent: MotionEvent, viewWidth: Int)
     {
         when (motionEvent.action and MotionEvent.ACTION_MASK) {
 
             MotionEvent.ACTION_UP -> heading  =
 
-                if (motionEvent.x >= view.width / 2) {
+                if (motionEvent.x >= viewWidth / 2) {
                     when (heading) {
                         up -> right
                         right -> down

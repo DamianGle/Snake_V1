@@ -83,7 +83,7 @@ class Snake: AppCompatActivity()
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
-        snakeBody.moveSnake(motionEvent, view)
+        snakeBody.moveSnake(motionEvent, view.width)
 
         return true
     }
