@@ -33,6 +33,17 @@ class SnakeBody() {
         snakeTailX.add(0, 200)
         snakeTailY.add(0, 200)
 
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+        addTail()
+
         when((1..4).random())
         {
             1 -> heading = left
@@ -95,6 +106,20 @@ class SnakeBody() {
                     }
                 }
         }
+    }
+
+    fun checkDeath() : Boolean
+    {
+        if(snakeTailX.count() > 1) {
+            var i = 1
+
+            while (i < snakeTailX.count()) {
+                if((snakeTailX[i] == snakeTailX[0]) && (snakeTailY[i] == snakeTailY[0]))
+                        return true
+                i++
+            }
+        }
+        return false
     }
 
     fun drawTails(canvas: Canvas)

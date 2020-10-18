@@ -100,6 +100,8 @@ class Snake: AppCompatActivity()
     {
         snakeBody.moveTails();
         draw();
+        if(snakeBody.checkDeath())
+            toast("Dead")
     }
 
     private fun startTimeCounter() {
