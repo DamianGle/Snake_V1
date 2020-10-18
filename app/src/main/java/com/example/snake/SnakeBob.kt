@@ -3,7 +3,6 @@ package com.example.snake
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.View
@@ -22,10 +21,11 @@ class SnakeBob {
     fun drawBob(canvas: Canvas, view: View)
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
+        val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
 
         if(!isBob) {
-            bobPosX = (dim!!..view.width).random() - dim!!
-            bobPosY = (dim!!..view.height).random() - dim!!
+            bobPosX = (dim!! + frameMargin!!..view.width - dim!! - frameMargin).random()
+            bobPosY = (dim!! + frameMargin!!..view.height - dim!! - frameMargin).random()
 
             isBob = true
         }
