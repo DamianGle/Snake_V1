@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.snake_play.*
 
 class SnakeBody() {
-    private var snakeTailX = mutableListOf<Int>()
-    private var snakeTailY = mutableListOf<Int>()
+    var snakeTailX = mutableListOf<Int>()
+    var snakeTailY = mutableListOf<Int>()
 
     private val up = 1
     private val right = 2

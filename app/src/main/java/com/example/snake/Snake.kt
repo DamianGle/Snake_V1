@@ -23,10 +23,12 @@ import org.jetbrains.anko.toast
 class Snake: AppCompatActivity()
 {
     private var snakeBody = SnakeBody();
+    private var snakeBob = SnakeBob();
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         snakeBody.setContext(applicationContext);
+        snakeBob.setContext(applicationContext);
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
@@ -46,6 +48,17 @@ class Snake: AppCompatActivity()
         shapeDrawable.draw(canvas);
     }
 
+    private fun eatBob()
+    {
+        val dim = resources.getInteger(R.integer.dim)
+        if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= dim*(-1)) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
+            if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
+                snakeBody.addTail()
+                snakeBob.isBob = false
+            }
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun draw()
     {
@@ -56,6 +69,10 @@ class Snake: AppCompatActivity()
 
         drawFrame(canvas);
         snakeBody.drawTails(canvas);
+
+        snakeBob.drawBob(canvas,view)
+
+        eatBob()
 
         view.background = BitmapDrawable(resources, bitmap)
     }

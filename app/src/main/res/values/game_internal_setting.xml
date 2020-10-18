@@ -8,4 +8,6 @@
     <color name="snake_color">#FF00FF</color>
     <integer name="snake_stroke">3</integer>
 
+    <color name="normal_bob_color">#F44336</color>
+
 </resources>
