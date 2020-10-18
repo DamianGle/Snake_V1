@@ -18,14 +18,14 @@ class SnakeBob {
     }
 
     @SuppressLint("ResourceType")
-    fun drawBob(canvas: Canvas, view: View)
+    fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int)
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
         val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
 
         if(!isBob) {
-            bobPosX = (dim!! + frameMargin!!..view.width - dim!! - frameMargin).random()
-            bobPosY = (dim!! + frameMargin!!..view.height - dim!! - frameMargin).random()
+            bobPosX = (dim!! + frameMargin!!..sizeX - dim!! - frameMargin).random()
+            bobPosY = (dim!! + frameMargin!!..sizeY - dim!! - frameMargin).random()
 
             isBob = true
         }

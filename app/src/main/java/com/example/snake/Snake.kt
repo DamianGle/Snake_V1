@@ -70,7 +70,7 @@ class Snake: AppCompatActivity()
         drawFrame(canvas);
         snakeBody.drawTails(canvas);
 
-        snakeBob.drawBob(canvas,view)
+        snakeBob.drawBob(canvas,view.width, view.height)
 
         eatBob()
 

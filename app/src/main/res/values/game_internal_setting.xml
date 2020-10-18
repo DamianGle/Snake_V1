@@ -3,7 +3,7 @@
     <integer name="dim">20</integer>
     <integer name="frame_margin">20</integer>
     <integer name="timer_counter">100</integer>
-    <integer name="FPS">3</integer>
+    <integer name="FPS">5</integer>
 
     <color name="snake_color">#FF00FF</color>
     <integer name="snake_stroke">3</integer>
