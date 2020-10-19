@@ -48,6 +48,15 @@ class SnakeBody() {
         snakeTailY.add(snakeTailY.count(), snakeTailY[snakeTailY.count() - 1])
     }
 
+    fun removeTail()
+    {
+        if(snakeTailX.count() > 1)
+            {
+                snakeTailX.removeAt(snakeTailX.count() - 1)
+                snakeTailY.removeAt(snakeTailY.count() - 1)
+            }
+    }
+
     fun moveTails()
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
