@@ -25,6 +25,8 @@ class Snake: AppCompatActivity()
     private var snakeBody = SnakeBody();
     private var snakeBob = SnakeBob();
 
+    private var countTimer = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         snakeBody.setContext(applicationContext);
@@ -53,8 +55,12 @@ class Snake: AppCompatActivity()
         val dim = resources.getInteger(R.integer.dim)
         if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= dim*(-1)) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
             if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
+
                 snakeBody.addTail()
+                snakeBob.isSpeedBob = false
+                snakeBob.isNormalBob = false
                 snakeBob.isBob = false
+
             }
         }
     }
@@ -98,17 +104,27 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
-        snakeBody.moveTails();
+        if(!snakeBob.isSpeedBob)
+            snakeBob.speedBobTimerCounter = resources.getInteger(R.integer.bob_speed_add)
+        else
+            snakeBob.speedBobTimerCounter = 0
+
+        if(countTimer >= snakeBob.speedBobTimerCounter) {
+            snakeBody.moveTails();
+            countTimer = 0
+        }
+        else
+            countTimer++
+
         draw();
-        if(snakeBody.checkDeath())
+        if (snakeBody.checkDeath())
             toast("Dead")
     }
 
     private fun startTimeCounter() {
         val countTime: TextView = findViewById(R.id.countTime)
-
-        object : CountDownTimer((resources.getInteger(R.integer.timer_counter)/resources.getInteger(R.integer.FPS) * 10).toLong(),
-            resources.getInteger(R.integer.timer_counter).toLong())
+        object : CountDownTimer((resources.getInteger(R.integer.timer_counter)/resources.getInteger(R.integer.FPS) * 10).toLong()
+        , resources.getInteger(R.integer.timer_counter).toLong())
         {
             @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
             override fun onTick(millisUntilFinished: Long) {
