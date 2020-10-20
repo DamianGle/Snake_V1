@@ -108,7 +108,7 @@ class SnakeBody() {
 
     fun checkDeath() : Boolean
     {
-        if(snakeTailX.count() > 2) {
+        if(snakeTailX.count() > 3) {
             var i = 2
 
             while (i < snakeTailX.count()) {

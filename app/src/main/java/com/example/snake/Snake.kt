@@ -52,21 +52,31 @@ class Snake: AppCompatActivity()
 
     private fun eatBob()
     {
-        val dim = resources.getInteger(R.integer.dim)
-        if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= dim*(-1)) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
-            if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
+        var dim :Int? = if(snakeBob.isBigBob)
+            resources?.getInteger(R.integer.dim)?.times(resources.getInteger(R.integer.big_bob_factor))
+        else
+            resources?.getInteger(R.integer.dim)
 
-                if(snakeBob.isEraseBob)
-                    snakeBody.removeTail()
-                else
-                    snakeBody.addTail()
+        if (dim != null) {
+            if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= dim*(-1)) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
+                if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
 
-                if(!snakeBob.isSpeedBob)
-                    snakeBob.speedBobTimerCounter = resources.getInteger(R.integer.bob_speed_add)
-                else
-                    snakeBob.speedBobTimerCounter = 0
+                    if (snakeBob.isEraseBob) {
+                        snakeBody.removeTail()
+                        if (snakeBob.isBigBob)
+                            snakeBody.removeTail()
+                    } else {
+                        snakeBody.addTail()
+                        if (snakeBob.isBigBob)
+                            snakeBody.addTail()
+                    }
+                    if(!snakeBob.isSpeedBob)
+                        snakeBob.speedBobTimerCounter = resources.getInteger(R.integer.bob_speed_add)
+                    else
+                        snakeBob.speedBobTimerCounter = 0
 
-                snakeBob.resetBob()
+                    snakeBob.resetBob()
+                }
             }
         }
     }

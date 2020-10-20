@@ -13,4 +13,6 @@
     <color name="speed_bob_color">#FFC107</color>
     <integer name="bob_speed_add">2</integer>
 
+    <integer name="big_bob_factor">2</integer>
+
 </resources>

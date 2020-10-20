@@ -3,10 +3,8 @@ package com.example.snake
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
-import android.view.View
 
 class SnakeBob {
     private var context: Context? = null
@@ -15,6 +13,7 @@ class SnakeBob {
     var isNormalBob = false
     var isEraseBob = false
     var isSpeedBob = false
+    var isBigBob = false
     var speedBobTimerCounter = 0
 
     var bobPosX: Int = 0
@@ -28,12 +27,22 @@ class SnakeBob {
     @SuppressLint("ResourceType")
     fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int)
     {
-        val dim = context?.resources?.getInteger(R.integer.dim)
+        if(!isBob) {
+            when ((1..2).random()) {
+                1 -> isBigBob = true
+                2 -> isBigBob = false
+            }
+        }
+        val dim :Int? = if(isBigBob)
+            context?.resources?.getInteger(R.integer.dim)?.times(context!!.resources.getInteger(R.integer.big_bob_factor))
+        else
+            context?.resources?.getInteger(R.integer.dim)
+
         val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
         val shapeDrawable = ShapeDrawable(RectShape())
 
         if(!isBob) {
-            bobPosX = (dim!! + frameMargin!!..sizeX - dim!! - frameMargin).random()
+            bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
             bobPosY = (dim!! + frameMargin!!..sizeY - dim!! - frameMargin).random()
 
             when ((1..3).random()) {
@@ -57,6 +66,7 @@ class SnakeBob {
         isEraseBob = false
         isSpeedBob = false
         isNormalBob = false
+        isBigBob = false
         isBob = false
     }
 }
