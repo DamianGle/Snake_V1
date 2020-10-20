@@ -17,12 +17,12 @@ class SnakeBob {
     var isSpeedBob = false
     var speedBobTimerCounter = 0
 
-
     var bobPosX: Int = 0
     var bobPosY: Int = 0
 
     fun setContext(con: Context?) {
         context = con
+        speedBobTimerCounter = context?.resources?.getInteger(R.integer.bob_speed_add)!!
     }
 
     @SuppressLint("ResourceType")
@@ -50,7 +50,13 @@ class SnakeBob {
         if(isEraseBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.erase_bob_color)!!
 
         shapeDrawable.draw(canvas)
+    }
 
-
+    fun resetBob()
+    {
+        isEraseBob = false
+        isSpeedBob = false
+        isNormalBob = false
+        isBob = false
     }
 }

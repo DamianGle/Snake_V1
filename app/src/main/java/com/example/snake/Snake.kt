@@ -61,10 +61,12 @@ class Snake: AppCompatActivity()
                 else
                     snakeBody.addTail()
 
-                snakeBob.isEraseBob = false
-                snakeBob.isSpeedBob = false
-                snakeBob.isNormalBob = false
-                snakeBob.isBob = false
+                if(!snakeBob.isSpeedBob)
+                    snakeBob.speedBobTimerCounter = resources.getInteger(R.integer.bob_speed_add)
+                else
+                    snakeBob.speedBobTimerCounter = 0
+
+                snakeBob.resetBob()
             }
         }
     }
@@ -108,11 +110,6 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
-        if(!snakeBob.isSpeedBob)
-            snakeBob.speedBobTimerCounter = resources.getInteger(R.integer.bob_speed_add)
-        else
-            snakeBob.speedBobTimerCounter = 0
-
         if(countTimer >= snakeBob.speedBobTimerCounter) {
             snakeBody.moveTails();
             countTimer = 0
