@@ -44,7 +44,7 @@ class Snake: AppCompatActivity()
         val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
 
         shapeDrawable.setBounds( margin,margin,view.width - margin,view.height - margin);
-        shapeDrawable.paint.color = Color.RED;
+        shapeDrawable.paint.color = Color.GRAY;
         shapeDrawable.paint.style = Paint.Style.STROKE;
         shapeDrawable.paint.strokeWidth = 5f;
         shapeDrawable.draw(canvas);
@@ -56,11 +56,15 @@ class Snake: AppCompatActivity()
         if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= dim*(-1)) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
             if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
 
-                snakeBody.addTail()
+                if(snakeBob.isEraseBob)
+                    snakeBody.removeTail()
+                else
+                    snakeBody.addTail()
+
+                snakeBob.isEraseBob = false
                 snakeBob.isSpeedBob = false
                 snakeBob.isNormalBob = false
                 snakeBob.isBob = false
-
             }
         }
     }

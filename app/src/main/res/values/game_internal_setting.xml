@@ -9,7 +9,7 @@
     <integer name="snake_stroke">3</integer>
 
     <color name="normal_bob_color">#9C27B0</color>
-
+    <color name="erase_bob_color">#3F51B5</color>
     <color name="speed_bob_color">#FFC107</color>
     <integer name="bob_speed_add">2</integer>
 
