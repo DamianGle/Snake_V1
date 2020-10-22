@@ -14,6 +14,7 @@ class SnakeBob {
     var isEraseBob = false
     var isSpeedBob = false
     var isBigBob = false
+    var isDeleteBob = false
     var speedBobTimerCounter = 0
 
     var bobPosX: Int = 0
@@ -28,6 +29,14 @@ class SnakeBob {
     fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int)
     {
         if(!isBob) {
+            isDeleteBob = when((1..10).random()) {
+                1 -> {
+                    //resetBob()
+                    true
+                }
+                else -> false
+            }
+
             when ((1..2).random()) {
                 1 -> isBigBob = true
                 2 -> isBigBob = false
@@ -43,13 +52,15 @@ class SnakeBob {
 
         if(!isBob) {
             bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
-            bobPosY = (dim!! + frameMargin!!..sizeY - dim!! - frameMargin).random()
+            bobPosY = (dim + frameMargin..sizeY - dim - frameMargin).random()
 
             when ((1..3).random()) {
                     1 -> isNormalBob = true
                     2 -> isSpeedBob = true
                     3 -> isEraseBob = true
             }
+
+
             isBob = true
         }
 
@@ -57,6 +68,7 @@ class SnakeBob {
         if(isNormalBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.normal_bob_color)!!
         if(isSpeedBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.speed_bob_color)!!
         if(isEraseBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.erase_bob_color)!!
+        if(isDeleteBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.delete_bob_color)!!
 
         shapeDrawable.draw(canvas)
     }
