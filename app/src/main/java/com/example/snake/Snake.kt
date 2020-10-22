@@ -25,6 +25,8 @@ class Snake: AppCompatActivity()
     private var snakeBody = SnakeBody();
     private var snakeBob = SnakeBob();
 
+    private var snakePointsVal = 0;
+
     private var countTimer = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +40,14 @@ class Snake: AppCompatActivity()
         startTimeCounter();
     }
 
+    @SuppressLint("ResourceType")
     private fun drawFrame(canvas: Canvas)
     {
         val margin = resources.getInteger(R.integer.frame_margin);
         val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
 
         shapeDrawable.setBounds( margin,margin,view.width - margin,view.height - margin);
-        shapeDrawable.paint.color = Color.GRAY;
+        shapeDrawable.paint.color = resources.getInteger(R.color.layout_color);
         shapeDrawable.paint.style = Paint.Style.STROKE;
         shapeDrawable.paint.strokeWidth = 5f;
         shapeDrawable.draw(canvas);
@@ -62,17 +65,24 @@ class Snake: AppCompatActivity()
                 if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
 
                     if(snakeBob.isDeleteBob) {
+                        snakePointsVal += snakeBody.snakeTailX.count()
                         snakeBody.removeSnake()
                     }
                     else {
                         if (snakeBob.isEraseBob) {
+                            snakePointsVal += 1
                             snakeBody.removeTail()
-                            if (snakeBob.isBigBob)
+                            if (snakeBob.isBigBob) {
+                                snakePointsVal += 1
                                 snakeBody.removeTail()
+                            }
                         } else {
+                            snakePointsVal += 1
                             snakeBody.addTail()
-                            if (snakeBob.isBigBob)
+                            if (snakeBob.isBigBob) {
+                                snakePointsVal += 1
                                 snakeBody.addTail()
+                            }
                         }
                         if (!snakeBob.isSpeedBob)
                             snakeBob.speedBobTimerCounter =
@@ -122,6 +132,7 @@ class Snake: AppCompatActivity()
         myView.setOnTouchListener(touchListener);
     }
 
+    @SuppressLint("ResourceType")
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
@@ -135,10 +146,13 @@ class Snake: AppCompatActivity()
         draw();
         if (snakeBody.checkDeath())
             toast("Dead")
+
+        var snakePoints: TextView = findViewById(R.id.countTime)
+        snakePoints.setTextColor(resources.getInteger(R.color.layout_color))
+        snakePoints.text = "Points: $snakePointsVal"
     }
 
     private fun startTimeCounter() {
-        val countTime: TextView = findViewById(R.id.countTime)
         object : CountDownTimer((resources.getInteger(R.integer.timer_counter)/resources.getInteger(R.integer.FPS) * 10).toLong()
         , resources.getInteger(R.integer.timer_counter).toLong())
         {

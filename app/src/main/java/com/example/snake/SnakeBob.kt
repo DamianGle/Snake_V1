@@ -58,7 +58,6 @@ class SnakeBob {
                     3 -> isEraseBob = true
                 }
             }
-
             isBob = true
         }
 
