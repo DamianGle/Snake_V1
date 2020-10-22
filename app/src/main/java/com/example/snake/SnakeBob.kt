@@ -30,10 +30,7 @@ class SnakeBob {
     {
         if(!isBob) {
             isDeleteBob = when((1..10).random()) {
-                1 -> {
-                    //resetBob()
-                    true
-                }
+                1 -> true
                 else -> false
             }
 
@@ -54,12 +51,13 @@ class SnakeBob {
             bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
             bobPosY = (dim + frameMargin..sizeY - dim - frameMargin).random()
 
-            when ((1..3).random()) {
+            if(!isDeleteBob) {
+                when ((1..3).random()) {
                     1 -> isNormalBob = true
                     2 -> isSpeedBob = true
                     3 -> isEraseBob = true
+                }
             }
-
 
             isBob = true
         }

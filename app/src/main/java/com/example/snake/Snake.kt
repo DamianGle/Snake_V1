@@ -61,20 +61,25 @@ class Snake: AppCompatActivity()
             if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= dim*(-1)) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
                 if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
 
-                    if (snakeBob.isEraseBob) {
-                        snakeBody.removeTail()
-                        if (snakeBob.isBigBob)
-                            snakeBody.removeTail()
-                    } else {
-                        snakeBody.addTail()
-                        if (snakeBob.isBigBob)
-                            snakeBody.addTail()
+                    if(snakeBob.isDeleteBob) {
+                        snakeBody.removeSnake()
                     }
-                    if(!snakeBob.isSpeedBob)
-                        snakeBob.speedBobTimerCounter = resources.getInteger(R.integer.bob_speed_add)
-                    else
-                        snakeBob.speedBobTimerCounter = 0
-
+                    else {
+                        if (snakeBob.isEraseBob) {
+                            snakeBody.removeTail()
+                            if (snakeBob.isBigBob)
+                                snakeBody.removeTail()
+                        } else {
+                            snakeBody.addTail()
+                            if (snakeBob.isBigBob)
+                                snakeBody.addTail()
+                        }
+                        if (!snakeBob.isSpeedBob)
+                            snakeBob.speedBobTimerCounter =
+                                resources.getInteger(R.integer.bob_speed_add)
+                        else
+                            snakeBob.speedBobTimerCounter = 0
+                    }
                     snakeBob.resetBob()
                 }
             }
