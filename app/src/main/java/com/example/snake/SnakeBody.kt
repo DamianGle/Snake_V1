@@ -32,7 +32,7 @@ class SnakeBody() {
     {
         snakeTailX.add(0, 200)
         snakeTailY.add(0, 200)
-
+        
         when((1..4).random())
         {
             1 -> heading = left
@@ -55,6 +55,12 @@ class SnakeBody() {
                 snakeTailX.removeAt(snakeTailX.count() - 1)
                 snakeTailY.removeAt(snakeTailY.count() - 1)
             }
+    }
+
+    fun removeSnake()
+    {
+        while(snakeTailX.count() > 1)
+            removeTail()
     }
 
     fun moveTails()
