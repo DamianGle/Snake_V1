@@ -24,6 +24,7 @@ class Snake: AppCompatActivity()
 {
     private var snakeBody = SnakeBody();
     private var snakeBob = SnakeBob();
+    private var snakeWalls = SnakeWalls();
 
     private var snakePointsVal = 0;
 
@@ -33,9 +34,12 @@ class Snake: AppCompatActivity()
 
         snakeBody.setContext(applicationContext);
         snakeBob.setContext(applicationContext);
+        snakeWalls.setContext(applicationContext);
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
+
+        snakeWalls.createWall(200, 200)
 
         startTimeCounter();
     }
@@ -110,6 +114,8 @@ class Snake: AppCompatActivity()
         snakeBob.drawBob(canvas,view.width, view.height)
 
         eatBob()
+
+        snakeWalls.drawWalls(canvas)
 
         view.background = BitmapDrawable(resources, bitmap)
     }

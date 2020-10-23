@@ -6,8 +6,10 @@
     <integer name="FPS">20</integer>
 
     <color name="layout_color">#575657</color>
+    <color name="wall_color">#575657</color>
+    <integer name="wall_stroke">3</integer>
 
-    <color name="snake_color">#FF00FF</color>
+    <color name="snake_color">#064704</color>
     <integer name="snake_stroke">3</integer>
 
     <color name="normal_bob_color">#9C27B0</color>
