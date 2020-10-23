@@ -14,7 +14,9 @@
     <color name="erase_bob_color">#3F51B5</color>
     <color name="speed_bob_color">#FFC107</color>
     <color name="delete_bob_color">#FFFFFF</color>
+
     <integer name="bob_speed_add">2</integer>
+    <integer name="delete_bob_difficultity">20</integer>
 
     <integer name="big_bob_factor">2</integer>
 

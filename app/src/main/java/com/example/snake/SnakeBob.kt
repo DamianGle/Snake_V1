@@ -29,7 +29,7 @@ class SnakeBob {
     fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int)
     {
         if(!isBob) {
-            isDeleteBob = when((1..10).random()) {
+            isDeleteBob = when((1..context?.resources?.getInteger(R.integer.delete_bob_difficultity)!!).random()) {
                 1 -> true
                 else -> false
             }
