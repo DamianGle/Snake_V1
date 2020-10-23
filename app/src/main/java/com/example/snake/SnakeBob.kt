@@ -15,6 +15,7 @@ class SnakeBob {
     var isSpeedBob = false
     var isBigBob = false
     var isDeleteBob = false
+    var isWallBob = false
     var speedBobTimerCounter = 0
 
     var bobPosX: Int = 0
@@ -52,10 +53,11 @@ class SnakeBob {
             bobPosY = (dim + frameMargin..sizeY - dim - frameMargin).random()
 
             if(!isDeleteBob) {
-                when ((1..3).random()) {
+                when ((1..4).random()) {
                     1 -> isNormalBob = true
                     2 -> isSpeedBob = true
                     3 -> isEraseBob = true
+                    4 -> isWallBob = true
                 }
             }
             isBob = true
@@ -66,6 +68,7 @@ class SnakeBob {
         if(isSpeedBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.speed_bob_color)!!
         if(isEraseBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.erase_bob_color)!!
         if(isDeleteBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.delete_bob_color)!!
+        if(isWallBob) shapeDrawable.paint.color = context?.resources?.getInteger(R.color.wall_bob_color)!!
 
         shapeDrawable.draw(canvas)
     }
@@ -76,6 +79,7 @@ class SnakeBob {
         isSpeedBob = false
         isNormalBob = false
         isBigBob = false
+        isWallBob = false
         isBob = false
     }
 }
