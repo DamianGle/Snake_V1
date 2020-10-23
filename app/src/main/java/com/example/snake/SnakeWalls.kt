@@ -17,6 +17,23 @@ class SnakeWalls{
         context = con
     }
 
+    fun checkDeath(headPosX: Int, headPosY: Int) :Boolean
+    {
+        val dim = context?.resources?.getInteger(R.integer.dim)
+        var i = 0
+        for(i in 0 until wallTailX.count())
+        {
+            if (dim != null) {
+                if(((headPosX - wallTailX[i]) >= dim*(-1)) && ((headPosX - wallTailX[i]) <= dim)) {
+                    if(((headPosY - wallTailY[i]) >= dim *(-1)) && ((headPosY - wallTailY[i]) <= dim)) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+
     fun createWall(sizeX: Int, sizeY: Int, snakePosX:List<Int>, snakePosY:List<Int>, bobPosX: Int, bobPosY: Int)
     {
         val dim = context?.resources?.getInteger(R.integer.dim)

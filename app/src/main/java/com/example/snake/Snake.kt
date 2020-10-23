@@ -156,7 +156,7 @@ class Snake: AppCompatActivity()
             countTimer++
 
         draw();
-        if (snakeBody.checkDeath())
+        if (snakeBody.checkDeath() || snakeWalls.checkDeath(snakeBody.snakeTailX[0], snakeBody.snakeTailY[0]))
             toast("Dead")
 
         var snakePoints: TextView = findViewById(R.id.countTime)

@@ -9,17 +9,17 @@
     <color name="wall_color">#575657</color>
     <integer name="wall_stroke">3</integer>
 
-    <color name="snake_color">#064704</color>
+    <color name="snake_color">#086005</color>
     <integer name="snake_stroke">3</integer>
 
-    <color name="normal_bob_color">#9C27B0</color>
+    <color name="normal_bob_color">#086005</color>
     <color name="erase_bob_color">#3F51B5</color>
     <color name="speed_bob_color">#FFC107</color>
     <color name="delete_bob_color">#FFFFFF</color>
     <color name="wall_bob_color">#575657</color>
 
     <integer name="bob_speed_add">2</integer>
-    <integer name="delete_bob_difficultity">20</integer>
+    <integer name="delete_bob_difficultity">12</integer>
 
     <integer name="big_bob_factor">2</integer>
 
