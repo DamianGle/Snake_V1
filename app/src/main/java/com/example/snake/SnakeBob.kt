@@ -27,7 +27,7 @@ class SnakeBob {
     }
 
     @SuppressLint("ResourceType")
-    fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int)
+    fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int, snakePosX:List<Int>, snakePosY:List<Int>)
     {
         if(!isBob) {
             isDeleteBob = when((1..context?.resources?.getInteger(R.integer.delete_bob_difficultity)!!).random()) {
@@ -51,6 +51,17 @@ class SnakeBob {
         if(!isBob) {
             bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
             bobPosY = (dim + frameMargin..sizeY - dim - frameMargin).random()
+
+            var i = 0
+            for(i in 0 until snakePosX.count())
+            {
+                if((bobPosX == snakePosX[i]) && (bobPosY == snakePosY[i]))
+                {
+                    bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
+                    bobPosY = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
+                    continue
+                }
+            }
 
             if(!isDeleteBob) {
                 when ((1..4).random()) {

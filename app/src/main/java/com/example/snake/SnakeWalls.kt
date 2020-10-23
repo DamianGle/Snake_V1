@@ -17,13 +17,27 @@ class SnakeWalls{
         context = con
     }
 
-    fun createWall(sizeX: Int, sizeY: Int)
+    fun createWall(sizeX: Int, sizeY: Int, snakePosX:List<Int>, snakePosY:List<Int>, bobPosX: Int, bobPosY: Int)
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
         val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
 
-        wallTailX.add((dim!! + frameMargin!!..sizeX - dim - frameMargin).random())
-        wallTailY.add((dim + frameMargin..sizeY - dim - frameMargin).random())
+        var wallTailx = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
+        var wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
+
+        var i = 0
+        for(i in 0 until snakePosX.count())
+        {
+            if((wallTailx == snakePosX[i]) && (wallTaily == snakePosY[i]) || ((wallTailx == bobPosX) && (wallTaily == bobPosY)))
+            {
+                wallTailx = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
+                wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
+                continue
+            }
+        }
+
+        wallTailX.add(wallTailx)
+        wallTailY.add(wallTaily)
     }
 
     fun drawWalls(canvas: Canvas)

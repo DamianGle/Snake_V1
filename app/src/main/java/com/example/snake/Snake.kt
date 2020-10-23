@@ -39,7 +39,7 @@ class Snake: AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
 
-        snakeWalls.createWall(200, 200)
+        //snakeWalls.createWall(200, 200)
 
         startTimeCounter();
     }
@@ -93,9 +93,13 @@ class Snake: AppCompatActivity()
                                 resources.getInteger(R.integer.bob_speed_add)
                         else
                             snakeBob.speedBobTimerCounter = 0
-                    }
 
-                    snakeWalls.createWall(view.width, view.height)
+                        if (snakeBob.isWallBob) {
+                            snakePointsVal += 1
+                            snakeBody.addTail()
+                            snakeWalls.createWall(view.width, view.height, snakeBody.snakeTailX, snakeBody.snakeTailY, snakeBob.bobPosX, snakeBob.bobPosY)
+                        }
+                    }
                     snakeBob.resetBob()
                 }
             }
@@ -113,7 +117,7 @@ class Snake: AppCompatActivity()
         drawFrame(canvas);
         snakeBody.drawTails(canvas);
 
-        snakeBob.drawBob(canvas,view.width, view.height)
+        snakeBob.drawBob(canvas,view.width, view.height, snakeBody.snakeTailX, snakeBody.snakeTailY)
 
         eatBob()
 
