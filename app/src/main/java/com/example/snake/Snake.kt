@@ -94,6 +94,8 @@ class Snake: AppCompatActivity()
                         else
                             snakeBob.speedBobTimerCounter = 0
                     }
+
+                    snakeWalls.createWall(view.width, view.height)
                     snakeBob.resetBob()
                 }
             }
