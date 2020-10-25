@@ -20,12 +20,13 @@ class SnakeWalls{
     fun checkDeath(headPosX: Int, headPosY: Int) :Boolean
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
+        val mdim = dim?.times((-1))
         var i = 0
         for(i in 0 until wallTailX.count())
         {
             if (dim != null) {
-                if(((headPosX - wallTailX[i]) >= dim*(-1)) && ((headPosX - wallTailX[i]) <= dim)) {
-                    if(((headPosY - wallTailY[i]) >= dim *(-1)) && ((headPosY - wallTailY[i]) <= dim)) {
+                if(((headPosX - wallTailX[i]) >= mdim!!) && ((headPosX - wallTailX[i]) <= dim)) {
+                    if(((headPosY - wallTailY[i]) >= mdim) && ((headPosY - wallTailY[i]) <= dim)) {
                         return true
                     }
                 }
@@ -37,22 +38,30 @@ class SnakeWalls{
     fun createWall(sizeX: Int, sizeY: Int, snakePosX:List<Int>, snakePosY:List<Int>, bobPosX: Int, bobPosY: Int)
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
+        val mdim = dim?.times((-1))
         val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
 
         var wallTailx = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
         var wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
 
         var i = 0
-        for(i in 0 until snakePosX.count())
-        {
-            if((wallTailx == snakePosX[i]) && (wallTaily == snakePosY[i]) || ((wallTailx == bobPosX) && (wallTaily == bobPosY)))
-            {
-                wallTailx = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
-                wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
-                continue
+        var z = 0
+
+        for(z in 0 until snakePosX.count()) {
+            for (i in 0 until wallTailX.count()) {
+                if ((((wallTailx - wallTailX[i]) >= mdim!!) && ((wallTailx - wallTailX[i]) <= dim)
+                            && ((wallTaily - wallTailY[i]) >= mdim) && ((wallTaily - wallTailY[i]) <= dim))
+                    || ((((wallTailx - bobPosX) >= mdim) && ((wallTailx - bobPosX) <= dim)
+                            && ((wallTaily - bobPosY) >= mdim) && ((wallTaily - bobPosY) <= dim)))
+                    || ((((wallTailx - snakePosX[z]) >= mdim) && ((wallTailx - snakePosX[z]) <= dim)
+                            && ((wallTaily - snakePosY[z]) >= mdim) && ((wallTaily - snakePosY[z]) <= dim)))
+                ) {
+                    wallTailx = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
+                    wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
+                    continue
+                }
             }
         }
-
         wallTailX.add(wallTailx)
         wallTailY.add(wallTaily)
     }
