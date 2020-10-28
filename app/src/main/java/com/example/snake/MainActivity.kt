@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       // welcomeMessage.text = "Snake"
-
         val bitmap: Bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888)
         bitmap.eraseColor(Color.BLACK);
 
@@ -39,9 +37,5 @@ class MainActivity : AppCompatActivity() {
             moveTaskToBack(true)
             exitProcess(-1)
         }
-        // val intent = Intent(this, Snake::class.java)
-      //  intent.putExtra(EXTRA_ADDRESS, address)
-       // startActivity(intent);
-
     }
 }
