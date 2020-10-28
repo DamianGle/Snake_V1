@@ -50,7 +50,7 @@ class Snake: AppCompatActivity()
         val margin = resources.getInteger(R.integer.frame_margin);
         val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
 
-        shapeDrawable.setBounds( margin,margin,view.width - margin,view.height - margin);
+        shapeDrawable.setBounds( margin,margin,viw33.width - margin,viw33.height - margin);
         shapeDrawable.paint.color = resources.getInteger(R.color.layout_color);
         shapeDrawable.paint.style = Paint.Style.STROKE;
         shapeDrawable.paint.strokeWidth = 5f;
@@ -97,7 +97,7 @@ class Snake: AppCompatActivity()
                         if (snakeBob.isWallBob) {
                             snakePointsVal += 1
                             snakeBody.addTail()
-                            snakeWalls.createWall(view.width, view.height, snakeBody.snakeTailX, snakeBody.snakeTailY, snakeBob.bobPosX, snakeBob.bobPosY)
+                            snakeWalls.createWall(viw33.width, viw33.height, snakeBody.snakeTailX, snakeBody.snakeTailY, snakeBob.bobPosX, snakeBob.bobPosY)
                         }
                     }
                     snakeBob.resetBob()
@@ -109,7 +109,7 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun draw()
     {
-        val bitmap: Bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val bitmap: Bitmap = Bitmap.createBitmap(viw33.width, viw33.height, Bitmap.Config.ARGB_8888)
         bitmap.eraseColor(Color.BLACK);
 
         val canvas: Canvas = Canvas(bitmap)
@@ -117,13 +117,13 @@ class Snake: AppCompatActivity()
         drawFrame(canvas);
         snakeBody.drawTails(canvas);
 
-        snakeBob.drawBob(canvas,view.width, view.height, snakeBody.snakeTailX, snakeBody.snakeTailY)
+        snakeBob.drawBob(canvas,viw33.width, viw33.height, snakeBody.snakeTailX, snakeBody.snakeTailY)
 
         eatBob()
 
         snakeWalls.drawWalls(canvas)
 
-        view.background = BitmapDrawable(resources, bitmap)
+        viw33.background = BitmapDrawable(resources, bitmap)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -132,7 +132,7 @@ class Snake: AppCompatActivity()
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
-        snakeBody.moveSnake(motionEvent, view.width)
+        snakeBody.moveSnake(motionEvent, viw33.width)
 
         return true
     }
@@ -140,7 +140,7 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doInTimer()
     {
-        val myView: View = findViewById(R.id.view)
+        val myView: View = findViewById(R.id.viw33)
         myView.setOnTouchListener(touchListener);
     }
 

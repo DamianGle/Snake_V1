@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/BackgroundView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/welcomeMessage"
+        android:layout_width="233dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="56dp"
+        android:text="Snake"
+        android:textColor="@color/layout_color"
+        android:textSize="36sp"
+        android:textStyle="bold|italic"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+        android:gravity="center"/>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        >
+
+    <Button
+        android:id="@+id/SnakePlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:ellipsize="middle"
+        android:backgroundTint="@color/layout_color"
+        />
+
+    <Button
+        android:id="@+id/SnakeExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exit"
+        android:ellipsize="middle"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/layout_color"
+        />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
