@@ -47,7 +47,7 @@ class Snake: AppCompatActivity()
     private fun drawFrame(canvas: Canvas)
     {
         val margin = resources.getInteger(R.integer.frame_margin)
-        val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape())
+        val shapeDrawable = ShapeDrawable(RectShape())
 
         shapeDrawable.setBounds( margin,margin,viw33.width - margin,viw33.height - margin)
         shapeDrawable.paint.color = resources.getInteger(R.color.layout_color)
@@ -58,7 +58,7 @@ class Snake: AppCompatActivity()
 
     private fun eatBob()
     {
-        var dim :Int? = if(snakeBob.isBigBob)
+        val dim :Int? = if(snakeBob.isBigBob)
             resources?.getInteger(R.integer.dim)?.times(resources.getInteger(R.integer.big_bob_factor))
         else
             resources?.getInteger(R.integer.dim)
@@ -111,7 +111,7 @@ class Snake: AppCompatActivity()
         val bitmap: Bitmap = Bitmap.createBitmap(viw33.width, viw33.height, Bitmap.Config.ARGB_8888)
         bitmap.eraseColor(Color.BLACK)
 
-        val canvas: Canvas = Canvas(bitmap)
+        val canvas = Canvas(bitmap)
 
         drawFrame(canvas)
         snakeBody.drawTails(canvas)
@@ -143,7 +143,7 @@ class Snake: AppCompatActivity()
         myView.setOnTouchListener(touchListener)
     }
 
-    @SuppressLint("ResourceType")
+    @SuppressLint("ResourceType", "SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
@@ -167,7 +167,7 @@ class Snake: AppCompatActivity()
             finish()
         }
 
-        var snakePoints: TextView = findViewById(R.id.countPoints)
+        val snakePoints: TextView = findViewById(R.id.countPoints)
         snakePoints.setTextColor(resources.getInteger(R.color.layout_color))
         snakePoints.text = "Points: $snakePointsVal"
     }

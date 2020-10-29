@@ -21,7 +21,6 @@ class SnakeWalls{
     {
         val dim = context?.resources?.getInteger(R.integer.dim)
         val mdim = dim?.times((-1))
-        var i = 0
         for(i in 0 until wallTailX.count())
         {
             if (dim != null) {
@@ -42,10 +41,7 @@ class SnakeWalls{
         val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
 
         var wallTailx = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
-        var wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
-
-        var i = 0
-        var z = 0
+        var wallTaily = (dim + frameMargin..sizeY - dim - frameMargin).random()
 
         for(z in 0 until snakePosX.count()) {
             for (i in 0 until wallTailX.count()) {
@@ -56,7 +52,7 @@ class SnakeWalls{
                     || ((((wallTailx - snakePosX[z]) >= mdim) && ((wallTailx - snakePosX[z]) <= dim)
                             && ((wallTaily - snakePosY[z]) >= mdim) && ((wallTaily - snakePosY[z]) <= dim)))
                 ) {
-                    wallTailx = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
+                    wallTailx = (dim + frameMargin!!..sizeX - dim - frameMargin).random()
                     wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
                     continue
                 }

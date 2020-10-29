@@ -8,9 +8,9 @@ import android.graphics.drawable.shapes.RectShape
 
 class SnakeBob {
     private var context: Context? = null
-    var isBob: Boolean = false
+    private var isBob: Boolean = false
 
-    var isNormalBob = false
+    private var isNormalBob = false
     var isEraseBob = false
     var isSpeedBob = false
     var isBigBob = false
@@ -52,12 +52,11 @@ class SnakeBob {
             bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
             bobPosY = (dim + frameMargin..sizeY - dim - frameMargin).random()
 
-            var i = 0
             for(i in 0 until snakePosX.count())
             {
                 if((bobPosX == snakePosX[i]) && (bobPosY == snakePosY[i]))
                 {
-                    bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
+                    bobPosX = (dim!! + frameMargin..sizeX - dim - frameMargin).random()
                     bobPosY = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
                     continue
                 }
