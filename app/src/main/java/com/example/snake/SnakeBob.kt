@@ -27,7 +27,7 @@ class SnakeBob {
     }
 
     @SuppressLint("ResourceType")
-    fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int, snakePosX:List<Int>, snakePosY:List<Int>)
+    fun drawBob(canvas: Canvas, sizeX: Int, sizeY: Int, snakePosX:List<Int>, snakePosY:List<Int>, wallTailX:List<Int>, wallTailY:List<Int>)
     {
         if(!isBob) {
             isDeleteBob = when((1..context?.resources?.getInteger(R.integer.delete_bob_difficultity)!!).random()) {
@@ -45,6 +45,8 @@ class SnakeBob {
         else
             context?.resources?.getInteger(R.integer.dim)
 
+        val mdim = dim?.times((-1))
+
         val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
         val shapeDrawable = ShapeDrawable(RectShape())
 
@@ -52,13 +54,17 @@ class SnakeBob {
             bobPosX = (dim!! + frameMargin!!..sizeX - dim - frameMargin).random()
             bobPosY = (dim + frameMargin..sizeY - dim - frameMargin).random()
 
-            for(i in 0 until snakePosX.count())
-            {
-                if((bobPosX == snakePosX[i]) && (bobPosY == snakePosY[i]))
-                {
-                    bobPosX = (dim!! + frameMargin..sizeX - dim - frameMargin).random()
-                    bobPosY = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
-                    continue
+            for(z in 0 until snakePosX.count()) {
+                for (i in 0 until wallTailX.count()) {
+                    if ((((bobPosX - wallTailX[i]) >= mdim!!) && ((bobPosX - wallTailX[i]) <= dim)
+                                && ((bobPosY - wallTailY[i]) >= mdim) && ((bobPosY - wallTailY[i]) <= dim))
+                        || ((((bobPosX - snakePosX[z]) >= mdim) && ((bobPosX - snakePosX[z]) <= dim)
+                                && ((bobPosY - snakePosY[z]) >= mdim) && ((bobPosY - snakePosY[z]) <= dim)))
+                    ) {
+                        bobPosX = (dim + frameMargin!!..sizeX - dim - frameMargin).random()
+                        bobPosY = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
+                        continue
+                    }
                 }
             }
 
