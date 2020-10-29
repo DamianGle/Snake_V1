@@ -31,6 +31,8 @@ class Snake: AppCompatActivity()
     private var snakePointsVal = 0
     private var countTimer = 0
 
+    private var isStop = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         snakeBody.setContext(applicationContext)
@@ -74,13 +76,17 @@ class Snake: AppCompatActivity()
                         }
                     else
                         {
+                            if(snakeBob.isBigBob)
+                            {
+                                snakePointsVal += 1
+                            }
                             if (snakeBob.isEraseBob)
                                 {
                                     snakePointsVal += 1
                                     snakeBody.removeTail()
                                     if (snakeBob.isBigBob)
                                         {
-                                            snakePointsVal += 1
+                                            //snakePointsVal += 1
                                             snakeBody.removeTail()
                                         }
                                 }
@@ -90,7 +96,7 @@ class Snake: AppCompatActivity()
                                     snakeBody.addTail()
                                     if (snakeBob.isBigBob)
                                         {
-                                            snakePointsVal += 1
+                                            //snakePointsVal += 1
                                             snakeBody.addTail()
                                         }
                                 }
@@ -107,7 +113,7 @@ class Snake: AppCompatActivity()
                                     snakeWalls.createWall(viw33.width, viw33.height, snakeBody.snakeTailX, snakeBody.snakeTailY, snakeBob.bobPosX, snakeBob.bobPosY)
                                     if(snakeBob.isBigBob)
                                         {
-                                            snakePointsVal += 1
+                                            //snakePointsVal += 1
                                             snakeBody.addTail()
                                             snakeWalls.createWall(viw33.width, viw33.height, snakeBody.snakeTailX, snakeBody.snakeTailY, snakeBob.bobPosX, snakeBob.bobPosY)
                                         }
@@ -145,8 +151,8 @@ class Snake: AppCompatActivity()
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
-        snakeBody.moveSnake(motionEvent, viw33.width)
-
+        if(!isStop)
+            snakeBody.moveSnake(motionEvent, viw33.width)
         return true
     }
 
@@ -162,7 +168,8 @@ class Snake: AppCompatActivity()
     private fun doAfterTimer()
     {
         if(countTimer >= snakeBob.speedBobTimerCounter) {
-            snakeBody.moveTails()
+            if(!isStop)
+                snakeBody.moveTails()
             countTimer = 0
         }
         else
@@ -176,9 +183,23 @@ class Snake: AppCompatActivity()
         val back = findViewById<Button>(R.id.BackSnake)
         back?.setOnClickListener()
         {
-
             startActivity(intent)
             finish()
+        }
+
+        val startStop = findViewById<Button>(R.id.StartStop)
+        startStop?.setOnClickListener()
+        {
+            if(!isStop)
+            {
+                isStop = true
+                startStop.text = "START"
+            }
+            else
+            {
+                isStop = false
+                startStop.text = "STOP"
+            }
         }
 
         val snakePoints: TextView = findViewById(R.id.countPoints)
