@@ -10,12 +10,12 @@ class SnakeBob {
     private var context: Context? = null
     private var isBob: Boolean = false
 
-    var isNormalBob = false
-    var isEraseBob = false
-    var isSpeedBob = false
-    var isBigBob = false
-    var isDeleteBob = false
-    var isWallBob = false
+    var isNormalBob: Boolean = false
+    var isEraseBob: Boolean = false
+    var isSpeedBob: Boolean = false
+    var isBigBob: Boolean = false
+    var isDeleteBob: Boolean = false
+    var isWallBob: Boolean = false
     var speedBobTimerCounter = 0
 
     var bobPosX: Int = 0
@@ -62,7 +62,7 @@ class SnakeBob {
                                 && ((bobPosY - snakePosY[z]) >= mdim) && ((bobPosY - snakePosY[z]) <= dim)))
                     ) {
                         bobPosX = (dim + frameMargin..sizeX - dim - frameMargin).random()
-                        bobPosY = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
+                        bobPosY = (dim + frameMargin!!..sizeY - dim - frameMargin).random()
                         continue
                     }
                 }

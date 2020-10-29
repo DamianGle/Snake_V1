@@ -167,6 +167,9 @@ class Snake: AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun doAfterTimer()
     {
+        val back = findViewById<Button>(R.id.BackSnake)
+        val startStop = findViewById<Button>(R.id.StartStop)
+
         if(countTimer >= snakeBob.speedBobTimerCounter) {
             if(!isStop)
                 snakeBody.moveTails()
@@ -176,18 +179,20 @@ class Snake: AppCompatActivity()
             countTimer++
 
         draw()
-        if (snakeBody.checkDeath() || snakeWalls.checkDeath(snakeBody.snakeTailX[0], snakeBody.snakeTailY[0]))
-            toast("Dead")
 
+        if (snakeBody.checkDeath() || snakeWalls.checkDeath(snakeBody.snakeTailX[0], snakeBody.snakeTailY[0])) {
+            //toast("Dead")
+            isStop = true
+            startStop.isClickable = false
+            startStop.visibility = View.INVISIBLE
+        }
         val intent = Intent(this, MainActivity::class.java)
-        val back = findViewById<Button>(R.id.BackSnake)
         back?.setOnClickListener()
         {
             startActivity(intent)
             finish()
         }
 
-        val startStop = findViewById<Button>(R.id.StartStop)
         startStop?.setOnClickListener()
         {
             if(!isStop)
