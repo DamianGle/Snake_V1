@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val bitmap: Bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888)
-        bitmap.eraseColor(Color.BLACK);
+        bitmap.eraseColor(Color.BLACK)
 
         BackgroundView.background = BitmapDrawable(resources, bitmap)
 
@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         val play = findViewById<Button>(R.id.SnakePlay)
         play?.setOnClickListener()
         {
-            startActivity(intent);
+            startActivity(intent)
+            finish()
         }
 
         val exit = findViewById<Button>(R.id.SnakeExit)

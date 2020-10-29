@@ -1,6 +1,7 @@
 package com.example.snake
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -14,6 +15,7 @@ import android.os.CountDownTimer
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -22,39 +24,36 @@ import org.jetbrains.anko.toast
 
 class Snake: AppCompatActivity()
 {
-    private var snakeBody = SnakeBody();
-    private var snakeBob = SnakeBob();
-    private var snakeWalls = SnakeWalls();
+    private var snakeBody = SnakeBody()
+    private var snakeBob = SnakeBob()
+    private var snakeWalls = SnakeWalls()
 
-    private var snakePointsVal = 0;
-
+    private var snakePointsVal = 0
     private var countTimer = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        snakeBody.setContext(applicationContext);
-        snakeBob.setContext(applicationContext);
-        snakeWalls.setContext(applicationContext);
+        snakeBody.setContext(applicationContext)
+        snakeBob.setContext(applicationContext)
+        snakeWalls.setContext(applicationContext)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snake_play)
 
-        //snakeWalls.createWall(200, 200)
-
-        startTimeCounter();
+        startTimeCounter()
     }
 
     @SuppressLint("ResourceType")
     private fun drawFrame(canvas: Canvas)
     {
-        val margin = resources.getInteger(R.integer.frame_margin);
-        val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape());
+        val margin = resources.getInteger(R.integer.frame_margin)
+        val shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape())
 
-        shapeDrawable.setBounds( margin,margin,viw33.width - margin,viw33.height - margin);
-        shapeDrawable.paint.color = resources.getInteger(R.color.layout_color);
-        shapeDrawable.paint.style = Paint.Style.STROKE;
-        shapeDrawable.paint.strokeWidth = 5f;
-        shapeDrawable.draw(canvas);
+        shapeDrawable.setBounds( margin,margin,viw33.width - margin,viw33.height - margin)
+        shapeDrawable.paint.color = resources.getInteger(R.color.layout_color)
+        shapeDrawable.paint.style = Paint.Style.STROKE
+        shapeDrawable.paint.strokeWidth = 5f
+        shapeDrawable.draw(canvas)
     }
 
     private fun eatBob()
@@ -110,12 +109,12 @@ class Snake: AppCompatActivity()
     private fun draw()
     {
         val bitmap: Bitmap = Bitmap.createBitmap(viw33.width, viw33.height, Bitmap.Config.ARGB_8888)
-        bitmap.eraseColor(Color.BLACK);
+        bitmap.eraseColor(Color.BLACK)
 
         val canvas: Canvas = Canvas(bitmap)
 
-        drawFrame(canvas);
-        snakeBody.drawTails(canvas);
+        drawFrame(canvas)
+        snakeBody.drawTails(canvas)
 
         snakeBob.drawBob(canvas,viw33.width, viw33.height, snakeBody.snakeTailX, snakeBody.snakeTailY)
 
@@ -128,7 +127,7 @@ class Snake: AppCompatActivity()
 
     @SuppressLint("ClickableViewAccessibility")
     var touchListener = OnTouchListener { _, event -> // save the X,Y coordinates
-        onTouchEvent(event);
+        onTouchEvent(event)
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
@@ -141,7 +140,7 @@ class Snake: AppCompatActivity()
     private fun doInTimer()
     {
         val myView: View = findViewById(R.id.viw33)
-        myView.setOnTouchListener(touchListener);
+        myView.setOnTouchListener(touchListener)
     }
 
     @SuppressLint("ResourceType")
@@ -149,17 +148,26 @@ class Snake: AppCompatActivity()
     private fun doAfterTimer()
     {
         if(countTimer >= snakeBob.speedBobTimerCounter) {
-            snakeBody.moveTails();
+            snakeBody.moveTails()
             countTimer = 0
         }
         else
             countTimer++
 
-        draw();
+        draw()
         if (snakeBody.checkDeath() || snakeWalls.checkDeath(snakeBody.snakeTailX[0], snakeBody.snakeTailY[0]))
             toast("Dead")
 
-        var snakePoints: TextView = findViewById(R.id.countTime)
+        val intent = Intent(this, MainActivity::class.java)
+        val back = findViewById<Button>(R.id.BackSnake)
+        back?.setOnClickListener()
+        {
+
+            startActivity(intent)
+            finish()
+        }
+
+        var snakePoints: TextView = findViewById(R.id.countPoints)
         snakePoints.setTextColor(resources.getInteger(R.color.layout_color))
         snakePoints.text = "Points: $snakePointsVal"
     }
