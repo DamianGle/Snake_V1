@@ -45,7 +45,7 @@ class SnakeBob {
         else
             context?.resources?.getInteger(R.integer.dim)
 
-        val mdim = dim?.times((-1))
+        val mDim = dim?.times((-1))
 
         val frameMargin = context?.resources?.getInteger(R.integer.frame_margin)
         val shapeDrawable = ShapeDrawable(RectShape())
@@ -56,13 +56,13 @@ class SnakeBob {
 
             for(z in 0 until snakePosX.count()) {
                 for (i in 0 until wallTailX.count()) {
-                    if ((((bobPosX - wallTailX[i]) >= mdim!!) && ((bobPosX - wallTailX[i]) <= dim)
-                                && ((bobPosY - wallTailY[i]) >= mdim) && ((bobPosY - wallTailY[i]) <= dim))
-                        || ((((bobPosX - snakePosX[z]) >= mdim) && ((bobPosX - snakePosX[z]) <= dim)
-                                && ((bobPosY - snakePosY[z]) >= mdim) && ((bobPosY - snakePosY[z]) <= dim)))
+                    if ((((bobPosX - wallTailX[i]) >= mDim!!) && ((bobPosX - wallTailX[i]) <= dim)
+                                && ((bobPosY - wallTailY[i]) >= mDim) && ((bobPosY - wallTailY[i]) <= dim))
+                        || ((((bobPosX - snakePosX[z]) >= mDim) && ((bobPosX - snakePosX[z]) <= dim)
+                                && ((bobPosY - snakePosY[z]) >= mDim) && ((bobPosY - snakePosY[z]) <= dim)))
                     ) {
                         bobPosX = (dim + frameMargin..sizeX - dim - frameMargin).random()
-                        bobPosY = (dim + frameMargin!!..sizeY - dim - frameMargin).random()
+                        bobPosY = (dim + frameMargin..sizeY - dim - frameMargin).random()
                         continue
                     }
                 }

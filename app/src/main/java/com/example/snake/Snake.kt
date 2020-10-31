@@ -20,7 +20,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.snake_play.*
-import org.jetbrains.anko.toast
 
 class Snake: AppCompatActivity()
 {
@@ -65,9 +64,10 @@ class Snake: AppCompatActivity()
         else
             resources?.getInteger(R.integer.dim)
 
-        if (dim != null) {
-            if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= dim*(-1)) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
-                if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= dim *(-1)) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
+        val mDim = (-1)* dim!!
+
+            if(((snakeBody.snakeTailX[0] - snakeBob.bobPosX) >= mDim) && ((snakeBody.snakeTailX[0] - snakeBob.bobPosX) <= dim)) {
+                if(((snakeBody.snakeTailY[0] - snakeBob.bobPosY) >= mDim) && ((snakeBody.snakeTailY[0] - snakeBob.bobPosY) <= dim)) {
 
                     if(snakeBob.isDeleteBob)
                         {
@@ -107,7 +107,6 @@ class Snake: AppCompatActivity()
                     snakeBob.resetBob()
                 }
             }
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)

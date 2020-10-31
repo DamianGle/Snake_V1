@@ -1,19 +1,14 @@
 package com.example.snake
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.MotionEvent
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.snake_play.*
 
-class SnakeBody() {
+class SnakeBody {
     var snakeTailX = mutableListOf<Int>()
     var snakeTailY = mutableListOf<Int>()
 

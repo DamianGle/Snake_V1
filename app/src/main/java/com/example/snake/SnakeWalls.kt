@@ -53,7 +53,7 @@ class SnakeWalls{
                             && ((wallTaily - snakePosY[z]) >= mdim) && ((wallTaily - snakePosY[z]) <= dim)))
                 ) {
                     wallTailx = (dim + frameMargin..sizeX - dim - frameMargin).random()
-                    wallTaily = (dim!! + frameMargin!!..sizeY - dim - frameMargin).random()
+                    wallTaily = (dim + frameMargin..sizeY - dim - frameMargin).random()
                     continue
                 }
             }
