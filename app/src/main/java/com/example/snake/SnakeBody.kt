@@ -42,25 +42,39 @@ class SnakeBody() {
         }
     }
 
-    fun addTail()
+    fun addTail(isBig:Boolean)
     {
         snakeTailX.add(snakeTailX.count(), snakeTailX[snakeTailX.count() - 1])
         snakeTailY.add(snakeTailY.count(), snakeTailY[snakeTailY.count() - 1])
+
+        if(isBig)
+            {
+                snakeTailX.add(snakeTailX.count(), snakeTailX[snakeTailX.count() - 1])
+                snakeTailY.add(snakeTailY.count(), snakeTailY[snakeTailY.count() - 1])
+            }
     }
 
-    fun removeTail()
+    fun removeTail(isBig:Boolean)
     {
         if(snakeTailX.count() > 1)
             {
                 snakeTailX.removeAt(snakeTailX.count() - 1)
                 snakeTailY.removeAt(snakeTailY.count() - 1)
             }
+        if(isBig)
+            {
+                if(snakeTailX.count() > 1)
+                {
+                    snakeTailX.removeAt(snakeTailX.count() - 1)
+                    snakeTailY.removeAt(snakeTailY.count() - 1)
+                }
+            }
     }
 
     fun removeSnake()
     {
         while(snakeTailX.count() > 1)
-            removeTail()
+            removeTail(false)
     }
 
     fun moveTails()

@@ -8,7 +8,7 @@ import android.graphics.drawable.shapes.RectShape
 
 class SnakeBob {
     private var context: Context? = null
-    private var isBob: Boolean = false
+    var isBob: Boolean = false
 
     var isNormalBob: Boolean = false
     var isEraseBob: Boolean = false

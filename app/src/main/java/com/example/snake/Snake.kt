@@ -76,29 +76,18 @@ class Snake: AppCompatActivity()
                         }
                     else
                         {
-                            if(snakeBob.isBigBob)
+                            if(snakeBob.isBob)
                             {
                                 snakePointsVal += 1
+                                snakeBody.addTail(snakeBob.isBigBob)
                             }
+                            if(snakeBob.isBigBob)
+                                snakePointsVal += 1
+
                             if (snakeBob.isEraseBob)
                                 {
-                                    snakePointsVal += 1
-                                    snakeBody.removeTail()
-                                    if (snakeBob.isBigBob)
-                                        {
-                                            //snakePointsVal += 1
-                                            snakeBody.removeTail()
-                                        }
-                                }
-                            if(snakeBob.isNormalBob)
-                                {
-                                    snakePointsVal += 1
-                                    snakeBody.addTail()
-                                    if (snakeBob.isBigBob)
-                                        {
-                                            //snakePointsVal += 1
-                                            snakeBody.addTail()
-                                        }
+                                    snakeBody.removeTail(snakeBob.isBigBob)
+                                    snakeBody.removeTail(snakeBob.isBigBob)
                                 }
 
                             if (!snakeBob.isSpeedBob)
@@ -108,13 +97,9 @@ class Snake: AppCompatActivity()
 
                              if (snakeBob.isWallBob)
                                 {
-                                    snakePointsVal += 1
-                                    snakeBody.addTail()
                                     snakeWalls.createWall(viw33.width, viw33.height, snakeBody.snakeTailX, snakeBody.snakeTailY, snakeBob.bobPosX, snakeBob.bobPosY)
                                     if(snakeBob.isBigBob)
                                         {
-                                            //snakePointsVal += 1
-                                            snakeBody.addTail()
                                             snakeWalls.createWall(viw33.width, viw33.height, snakeBody.snakeTailX, snakeBody.snakeTailY, snakeBob.bobPosX, snakeBob.bobPosY)
                                         }
                                 }
