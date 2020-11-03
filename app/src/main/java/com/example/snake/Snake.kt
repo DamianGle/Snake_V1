@@ -129,6 +129,16 @@ class Snake: AppCompatActivity()
         viw33.background = BitmapDrawable(resources, bitmap)
     }
 
+    private fun checkDeath():Boolean
+    {
+        if((snakeBody.snakeTailY[0] < resources?.getInteger(R.integer.dim)!!) || (snakeBody.snakeTailY[0] > viw33.height - resources?.getInteger(R.integer.dim)!!)
+            ||(snakeBody.snakeTailX[0] < resources?.getInteger(R.integer.dim)!!) || (snakeBody.snakeTailX[0] > viw33.width - resources?.getInteger(R.integer.dim)!!))
+            {
+               return true
+            }
+        return false
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     var touchListener = OnTouchListener { _, event -> // save the X,Y coordinates
         onTouchEvent(event)
@@ -164,7 +174,7 @@ class Snake: AppCompatActivity()
 
         draw()
 
-        if (snakeBody.checkDeath() || snakeWalls.checkDeath(snakeBody.snakeTailX[0], snakeBody.snakeTailY[0])) {
+        if (snakeBody.checkDeath() || snakeWalls.checkDeath(snakeBody.snakeTailX[0], snakeBody.snakeTailY[0]) || this.checkDeath()) {
             //toast("Dead")
             isStop = true
             startStop.isClickable = false
