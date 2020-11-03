@@ -28,6 +28,7 @@ class Snake: AppCompatActivity()
     private var snakeWalls = SnakeWalls()
 
     private var snakePointsVal = 0
+    private var snakePointsToWall = 0
     private var countTimer = 0
 
     private var isStop = false
@@ -72,18 +73,21 @@ class Snake: AppCompatActivity()
                     if(snakeBob.isDeleteBob)
                         {
                             snakePointsVal += snakeBody.snakeTailX.count()
+                            snakePointsToWall += snakeBody.snakeTailX.count()
                             snakeBody.removeSnake()
                         }
                     else
                         {
                             if(snakeBob.isBob)
                             {
-                                snakePointsVal += 1
+                                snakePointsVal++
+                                snakePointsToWall++
                                 snakeBody.addTail(snakeBob.isBigBob)
                             }
-                            if(snakeBob.isBigBob)
-                                snakePointsVal += 1
-
+                            if(snakeBob.isBigBob) {
+                                snakePointsVal++
+                                snakePointsToWall++
+                            }
                             if (snakeBob.isEraseBob)
                                 {
                                     snakeBody.removeTail(snakeBob.isBigBob)
@@ -105,6 +109,12 @@ class Snake: AppCompatActivity()
                                 }
                         }
                     snakeBob.resetBob()
+                    if(snakePointsToWall >= resources.getInteger(R.integer.min_points_to_delete_wall)
+                        && snakeWalls.wallTailX.count() >= resources.getInteger(R.integer.min_wall_level))
+                    {
+                        snakeWalls.deleteWalls(resources.getInteger(R.integer.numOF_delete_wall))
+                        snakePointsToWall = 0
+                    }
                 }
             }
     }

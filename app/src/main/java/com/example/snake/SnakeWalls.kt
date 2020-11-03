@@ -62,6 +62,16 @@ class SnakeWalls{
         wallTailY.add(wallTaily)
     }
 
+    fun deleteWalls(num:Int)
+    {
+        if(wallTailX.count() > 0) {
+            for (z in 0 until num) {
+                wallTailX.removeAt(z)
+                wallTailY.removeAt(z)
+            }
+        }
+    }
+
     fun drawWalls(canvas: Canvas)
     {
         var i = 0

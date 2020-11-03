@@ -23,4 +23,8 @@
 
     <integer name="big_bob_factor">2</integer>
 
+    <integer name="min_points_to_delete_wall">10</integer>
+    <integer name="min_wall_level">5</integer>
+    <integer name="numOF_delete_wall">1</integer>
+
 </resources>
